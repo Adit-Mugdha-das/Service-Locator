@@ -4,7 +4,7 @@ import folium
 import time
 
 # Google API details
-API_KEY = "AIzaSyCLk8sL-lO-9Lol_epYmBQjkzp4DVX0xpg"  # Replace with your actual API key
+API_KEY = "YOUR_GOOGLE_MAPS_API_KEY"  # Replace with your actual API key
 PLACES_API_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
 PLACE_DETAILS_API_URL = "https://maps.googleapis.com/maps/api/place/details/json"
 
@@ -164,11 +164,11 @@ def create_map(places, output_file):
 if __name__ == "__main__":
     output_filename = input("Enter output file name (without extension): ")
     output_file = f"{output_filename}.xlsx"
-    # map_file = "map.html"  # Map generation is commented out for now
+    map_file = "map.html"  # Map generation is enabled now
 
     places_data = fetch_places_for_coordinates(keyword="internet service provider")
     
     if places_data:
         pd.DataFrame(places_data).to_excel(output_file, index=False)
         print(f"Details saved to {output_file}")
-        # create_map(places_data, map_file)  # Map generation is commented out
+        create_map(places_data, map_file)  # Map generation is enabled
