@@ -4,11 +4,11 @@ import folium
 import time
 
 # Google API details
-API_KEY = "Your Api Key"
+API_KEY = "AIzaSyCLk8sL-lO-9Lol_epYmBQjkzp4DVX0xpg"  # Replace with your actual API key
 PLACES_API_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
 PLACE_DETAILS_API_URL = "https://maps.googleapis.com/maps/api/place/details/json"
 
-# Valid latitude and longitude ranges for Bangladesh
+# Valid latitude and longitude ranges
 valid_lat_range = (20.34, 26.63)
 valid_lon_range = (88.01, 92.67)
 
@@ -45,27 +45,42 @@ def get_place_details(place_id):
             if check_network():
                 print("Network reconnected, resuming operation...")
 
-# Function to fetch nearby places
+# Function to fetch nearby places with pagination support
 def get_nearby_places(lat, lng, radius, keyword="internet service provider"):
+    all_results = []
     params = {
         "location": f"{lat},{lng}",
         "radius": radius,
         "keyword": keyword,
         "key": API_KEY
     }
+
     while True:
         if check_network():
             response = requests.get(PLACES_API_URL, params=params)
             if response.status_code == 200:
-                return response.json().get("results", [])
+                data = response.json()
+                results = data.get("results", [])
+                all_results.extend(results)
+
+                # Check for next_page_token
+                next_page_token = data.get("next_page_token")
+                if next_page_token:
+                    print("Fetching more results...")
+                    time.sleep(2)  # Required delay before using next_page_token
+                    params["pagetoken"] = next_page_token
+                else:
+                    break  # No more pages
             else:
                 print(f"Error: {response.status_code}, {response.text}")
-                return []
+                break
         else:
             print("Network is disconnected, trying to reconnect once...")
             time.sleep(5)
             if check_network():
                 print("Network reconnected, resuming operation...")
+
+    return all_results
 
 # Function to process user input coordinates
 def fetch_places_for_coordinates(keyword="internet service provider"):
@@ -149,11 +164,11 @@ def create_map(places, output_file):
 if __name__ == "__main__":
     output_filename = input("Enter output file name (without extension): ")
     output_file = f"{output_filename}.xlsx"
-    map_file = "map.html"
+    # map_file = "map.html"  # Map generation is commented out for now
 
     places_data = fetch_places_for_coordinates(keyword="internet service provider")
     
     if places_data:
         pd.DataFrame(places_data).to_excel(output_file, index=False)
         print(f"Details saved to {output_file}")
-        create_map(places_data, map_file)
+        # create_map(places_data, map_file)  # Map generation is commented out
