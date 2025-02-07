@@ -1,96 +1,147 @@
-# Service-Locator
-## Google Places Data Fetcher 🌍
+# 🌍️ Service Locator
 
-This project is a Python script that interacts with the Google Places API to fetch and display information about nearby places of interest based on user-provided coordinates, search radius, and place type (e.g., schools, restaurants, internet service providers, etc.).
+### Google Places Data Fetcher 🌍  
 
-**Project Owner:** Adit Mugdha Das 👨‍💻
-
----
-
-## Features ✨
-
-- **Fetch Nearby Places**: Allows users to find places (e.g., businesses, landmarks) around a specified location. 🏢
-- **Custom Search**: Users can specify the search radius (in kilometers) and keyword to filter results (e.g., `school`, `restaurant`, `internet service provider`). 🔍
-- **Data Validation**: Validates the latitude and longitude inputs against the ranges for Bangladesh. ✅
-- **Network Handling**: Automatically detects and handles network disconnections, retrying operations once connectivity is restored. 🌐
-- **Detailed Information**: Fetches additional details such as:
-  - Place name 🏷️
-  - Address 📍
-  - Latitude and longitude 🗺️
-  - Phone number ☎️
-  - Website 🌐
-- **Save Results**: Outputs the fetched data to an Excel file (`.xlsx` format). 📊
-- **Interactive Map**: Creates an interactive HTML map showing the locations of the fetched places. 🗺️
-- **Automated File Creation**: No need to manually create output files; the script generates them for you! 📂
-- **Quick and Easy Information Retrieval**: Get all the details of nearby places (e.g., schools, restaurants, ISPs) in one file without manually searching Google. ⚡
-- **Bangladesh-Specific Support**: This script is designed to work within Bangladesh's latitude and longitude ranges. 🌏
+This project is a **Python script** that interacts with the **Google Places API** to fetch and display information about nearby places of interest based on user-provided **coordinates, search radius**, and **place type** (e.g., schools, restaurants, hospitals, etc.).  
 
 ---
 
-## ⚠️ Attention ⚠️
-This script is specifically built for use **only within Bangladesh**. It will not work for locations outside the defined latitude and longitude range.
+### 👤 **Project Owner**  
+**Adit Mugdha Das** ✨  
 
 ---
 
-## Prerequisites ⚙️
+## ⭐ Features  
 
-### API Key 🔑
-You need a valid Google Maps API key with access to the Places API. Replace the placeholder `"YOUR_GOOGLE_MAPS_API_KEY"` in the script with your actual API key.
+- **Fetch Nearby Places**:  
+  Allows users to find places (e.g., businesses, landmarks) around a specified location. 🏢  
 
-### Python Libraries 🐍
-Make sure the following Python libraries are installed:
-- `pandas`
-- `requests`
-- `folium`
+- **Custom Search**:  
+  Specify the **search radius** (in kilometers) and **keyword** to filter results (e.g., `school`, `restaurant`). 🔍  
 
-Install them using pip if not already installed:
-```bash
-pip install pandas requests folium
+- **Data Validation**:  
+  Automatically validates **latitude and longitude** inputs to ensure they fall within the valid **ranges for Bangladesh**. ✅  
 
+- **Network Handling**:  
+  Automatically detects and handles **network disconnections**, retrying operations once connectivity is restored. 🌐  
 
-## Script Structure 🛠️
-
-### Functions 🔧
-1. **`check_network()`**: Verifies internet connectivity. 🌐
-2. **`get_place_details(place_id)`**: Fetches detailed information (phone number, website) for a specific place. 📞
-3. **`get_nearby_places(lat, lng, radius, keyword)`**: Retrieves nearby places based on coordinates, radius, and keyword. 📍
-4. **`fetch_places_for_coordinates()`**: Handles user input and coordinates validation. ✅
-5. **`create_map(places, output_file)`**: Generates an interactive map of the fetched places. 🗺️
-
-### Main Execution Flow 🏗️
-The script:
-1. Accepts user inputs for coordinates, radius, and the type of place to search for. 📝
-2. Fetches and validates data from the Google Places API. 🌍
-3. Saves the results to an Excel file. 📄
-4. Optionally generates an interactive map. 🗺️
+- **Detailed Information**:  
+  Fetches additional details for each place, such as:  
+  - Name 🏷️  
+  - Address 📍  
+  - Latitude & Longitude 🌎  
+  - Phone Number ☎️  
+  - Website 🌐  
 
 ---
 
-## Features in Detail 📖
+## ⚠️ **Important Notice**  
 
-### Robust Input Validation ✅
-- Ensures latitude is within `[20.34, 26.63]`.
-- Ensures longitude is within `[88.01, 92.67]`.
-- Prompts the user until valid inputs are provided.
+🔴 **This script works only for locations within Bangladesh.**  
+- **Latitude Range:** `20.34° N` to `26.63° N`  
+- **Longitude Range:** `88.01° E` to `92.67° E`  
 
-### Intelligent Network Handling 🌐
-- Automatically detects network disconnections.
-- Retries the operation once the connection is restored.
-- Ensures seamless user experience.
-
-### Comprehensive Data 📊
-- Fetches not just the name and address, but also:
-  - Phone number ☎️
-  - Website 🌐
-  - Precise geographic coordinates 🗺️
-
-### Outputs 📤
-1. **Excel File**: Tabular data with all fetched details. 📄
-2. **Interactive Map**: Visual representation of locations, with popups showing detailed information. 🗺️
+🛒 Any coordinates outside this range will be rejected.
 
 ---
 
-## Acknowledgments 🙏
-- [Google Maps API](https://developers.google.com/maps/documentation/places/overview) for providing the data. 🌍
-- [Pandas](https://pandas.pydata.org/) for data handling. 📊
-- [Folium](https://python-visualization.github.io/folium/) for creating interactive maps. 🗺️
+## 🗰️ Setup Instructions  
+
+### 1⃣ **Install Python & Dependencies**  
+- Install **Python (3.x)** if not already installed.  
+- Install the required dependencies:  
+  ```bash
+  pip install pandas requests folium openpyxl
+  ```
+
+### 2⃣ **Get a Google Maps API Key**  
+To use the **Google Places API**, you need an API key:  
+1. Go to [Google Cloud Console](https://console.cloud.google.com/).  
+2. Enable the **Places API** under the API library.  
+3. Generate an **API Key** from the credentials page.  
+4. Replace `"YOUR_GOOGLE_MAPS_API_KEY"` in the script:  
+   ```python
+   API_KEY = "YOUR_GOOGLE_MAPS_API_KEY"
+   ```
+
+---
+
+### 🚀 **How to Run**  
+
+1⃣ **Run the script**:  
+   Open a terminal or command prompt and run the script:  
+   ```bash
+   python script.py
+   ```
+
+2⃣ **Enter location details**:  
+   - Enter **latitude, longitude** (e.g., `23.8103,90.4125`).  
+   - Enter the **search radius** in kilometers (e.g., `5`).  
+   - Enter the **place type** you want to search for (e.g., `restaurant`, `school`, `hospital`, etc.).  
+
+3⃣ **Output Files Generated**:  
+   - **Excel File (`output.xlsx`)** → Contains a list of places with detailed information.  
+   - **HTML Map (`map.html`)** → Displays all locations on an interactive map.
+
+---
+
+## 📂 **Project Structure**  
+
+```
+🗋 Service-Locator
+ ├── 🖄 script.py          # Main Python script
+ ├── 🖄 requirements.txt   # Dependencies list
+ ├── 🖄 README.md          # Documentation
+ ├── 🖄 map.html           # Generated interactive map
+ ├── 🖄 output.xlsx        # Excel file with results
+```
+
+---
+
+## 🗂️ **Example Output (Excel File)**  
+
+| Name            | Address                    | Latitude | Longitude | Phone Number | Website       |
+|------------------|----------------------------|----------|-----------|--------------|---------------|
+| ABC Restaurant   | 123 Main St, Dhaka         | 23.8103  | 90.4125   | 0123456789   | www.abc.com   |
+| XYZ School       | 456 School Rd, Chattogram  | 22.3569  | 91.7832   | N/A          | N/A           |
+
+---
+
+## 📍 **Interactive Map Preview**  
+
+The generated **`map.html`** file can be opened in any web browser to view all locations.  
+
+- Each place is marked with a **pin** 🖍️.  
+- Clicking on a pin shows the **name, address, phone number, and website** (if available).  
+
+---
+
+## ⚠️ **Google API Limitations**  
+
+- The **Google Places API free tier** has **daily request limits**.  
+- The `next_page_token` requires a **2-second delay** before fetching the next page.  
+- Some places may not provide **phone numbers** or **websites**.  
+
+---
+
+## 🛠️ **Troubleshooting**  
+
+- **Problem:** Script says `"Invalid Latitude/Longitude"`  
+  **Solution:** Ensure the coordinates are within Bangladesh.  
+
+- **Problem:** Script is not fetching phone numbers or websites.  
+  **Solution:** Some places may not provide this information via the Google Places API.  
+
+- **Problem:** `"Network Disconnected"` error appears.  
+  **Solution:** Check your internet connection and restart the script.  
+
+---
+
+## 📜 **License**  
+
+This project is **open-source** and licensed under the **MIT License**.  
+
+---
+
+### 🎮 **Happy Mapping! 🌏**
+
