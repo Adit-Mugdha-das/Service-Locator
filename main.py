@@ -46,7 +46,7 @@ def get_place_details(place_id):
                 print("Network reconnected, resuming operation...")
 
 # Function to fetch nearby places with pagination support
-def get_nearby_places(lat, lng, radius, keyword="internet service provider"):
+def get_nearby_places(lat, lng, radius, keyword):
     all_results = []
     params = {
         "location": f"{lat},{lng}",
@@ -82,8 +82,8 @@ def get_nearby_places(lat, lng, radius, keyword="internet service provider"):
 
     return all_results
 
-# Function to process user input coordinates
-def fetch_places_for_coordinates(keyword="internet service provider"):
+# Function to process user input coordinates and type of place
+def fetch_places_for_coordinates():
     while True:
         try:
             user_input = input("Enter latitude,longitude: ")
@@ -110,11 +110,12 @@ def fetch_places_for_coordinates(keyword="internet service provider"):
         except ValueError:
             print("Invalid radius. Please enter a valid number.")
 
-    print(f"Fetching places for coordinates: ({lat}, {lng}) with radius {radius_km} km")
+    keyword = input("Enter the type of place you want to search (e.g., school, restaurant, etc.): ").strip()
+    print(f"Fetching places for coordinates: ({lat}, {lng}) with radius {radius_km} km and keyword '{keyword}'")
     places = get_nearby_places(lat, lng, radius=radius, keyword=keyword)
     
     if not places:
-        print(f"No places found for ({lat}, {lng})")
+        print(f"No places found for ({lat}, {lng}) with keyword '{keyword}'.")
     
     all_places = []
     for place in places:
@@ -151,7 +152,7 @@ def create_map(places, output_file):
             popup=(f"<b>{place['Name']}</b><br>"
                    f"{place['Address']}<br>"
                    f"Phone: {place['Phone Number']}<br>"
-                   f"<a href='{place['Website']}' target='_blank'>Website</a>")
+                   f"<a href='{place['Website']}' target='_blank'>Website</a>"),
         ).add_to(m)
 
     try:
@@ -166,9 +167,9 @@ if __name__ == "__main__":
     output_file = f"{output_filename}.xlsx"
     map_file = "map.html"  # Map generation is enabled now
 
-    places_data = fetch_places_for_coordinates(keyword="internet service provider")
+    places_data = fetch_places_for_coordinates()
     
     if places_data:
         pd.DataFrame(places_data).to_excel(output_file, index=False)
         print(f"Details saved to {output_file}")
-        create_map(places_data, map_file)  # Map generation is enabled
+        create_map(places_data, map_file)  # Generate the map
