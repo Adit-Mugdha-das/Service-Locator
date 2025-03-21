@@ -27,7 +27,7 @@ This project is a **Python script** that interacts with the **Google Places API*
 
 - **Detailed Information**:  
   Fetches additional details for each place, such as:  
-  - Name 🏷  
+  - Name  
   - Address   
   - Latitude & Longitude   
   - Phone Number  
